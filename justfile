@@ -15,6 +15,14 @@ install:
 deps:
     mise run deps
 
+# Format the Python sources with ruff.
+fmt:
+    mise exec -- ruff format --config .github/config/ruff.toml .
+
+# Fail when a Python source is not ruff-formatted.
+fmt-check:
+    mise exec -- ruff format --config .github/config/ruff.toml --check .
+
 # Run every linter over the tracked files.
 lint:
     mise exec -- flint run --full
@@ -40,13 +48,29 @@ coverage:
 spec:
     mise exec -- python scripts/write-openapi.py
 
+# Fail when the generated API document differs from the code.
+spec-check:
+    just spec
+    git diff --exit-code -- docs/openapi.json
+
 # Serve the wrapper on http://127.0.0.1:8000 without a container.
 serve:
     mise run serve
 
-# Lint and test.
-verify: lint test
+# Everything CI requires.
+check: fmt-check lint test spec-check
+
+# Historical alias for `check`, kept for the support template.
+verify: check
+
+# Install the guarded git hook.
+hooks:
+    git config --local core.hooksPath .githooks
+
+# Check the .agents/skills tree and its .claude/skills links.
+agent-files:
+    mise exec -- node scripts/agent-files.mjs
 
 # Prune remote-tracking refs and delete local branches merged into main.
 prune:
-    node scripts/prune.mjs
+    mise exec -- node scripts/prune.mjs

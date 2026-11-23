@@ -34,11 +34,14 @@ docker run --rm -p 8000:8000 pokeapi-wrapper:local
 | --- | --- |
 | `just install` | Installs the pinned tools. |
 | `just deps` | Installs the Python dependencies. |
+| `just fmt-check` | Fails when a Python source is not `ruff format`-formatted. |
 | `just lint` | Runs the linters. |
 | `just test` | Runs the test suite. |
 | `just coverage` | Runs the suite with an lcov report under `coverage/`. |
 | `just spec` | Regenerates `docs/openapi.json` from the app. |
-| `just verify` | Lints and tests. |
+| `just check` | Runs everything CI requires: format, lint, tests, and the API document diff. |
+| `just hooks` | Installs the `pre-push` guard that refuses a push to `main`. |
+| `just agent-files` | Checks the skill tree and its Claude Code links. |
 | `just serve` | Serves the wrapper on port 8000. |
 
 ## Documentation
