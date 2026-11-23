@@ -20,7 +20,7 @@ A FastAPI service that wraps the public PokeAPI and returns a small shape of its
 - Data: no database. State is per request; one shared `httpx.AsyncClient` is built at startup and closed at shutdown.
 - Domain: the routes map names to their models through `PokeApiClient`. An upstream 404 becomes the wrapper's 404 and any other upstream error becomes a 502.
 - Docs: `docs/README.md` indexes the architecture, the Pokemon feature, and the OpenAPI contract. `docs/exceptions.md` records the standard rules this repository does not meet yet.
-- Hooks: `just hooks` points `core.hooksPath` at `.githooks`, whose `pre-push` refuses a push to `main`. The ruleset is the real gate.
+- Hooks: `just hooks` installs the shared Lefthook jobs from `simpsonm09-projects/.github` at the `hooks-v3` tag; `lefthook-local.yml` is git-ignored. Never skip a hook: no `LEFTHOOK=0`, no `--no-verify`, and never create `lefthook-local.yml` (C7.11). The ruleset is the real gate.
 - Agent files: `just agent-files` checks `.agents/skills` and its `.claude/skills` links. This repository has no repo-local skills.
 
 ## Skills
