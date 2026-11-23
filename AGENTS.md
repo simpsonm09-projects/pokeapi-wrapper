@@ -11,7 +11,7 @@ A FastAPI service that wraps the public PokeAPI and returns a small shape of its
 
 ## Commands
 
-- `just install`, `just deps`, `just lint`, `just test`, `just coverage`, `just spec`, `just verify`.
+- `just install`, `just deps`, `just fmt-check`, `just lint`, `just lint-fix`, `just aislop`, `just test`, `just coverage`, `just spec`, `just check`, `just hooks`, `just agent-files`, `just prune`.
 - `just serve` runs the service on <http://127.0.0.1:8000>.
 
 ## Repo facts
@@ -19,7 +19,9 @@ A FastAPI service that wraps the public PokeAPI and returns a small shape of its
 - Language and toolchain: Python 3.12, FastAPI, pydantic v2, httpx, uvicorn, pinned in `mise.toml` and `pyproject.toml`.
 - Data: no database. State is per request; one shared `httpx.AsyncClient` is built at startup and closed at shutdown.
 - Domain: the routes map names to their models through `PokeApiClient`. An upstream 404 becomes the wrapper's 404 and any other upstream error becomes a 502.
-- Docs: `docs/README.md` indexes the architecture, the Pokemon feature, and the OpenAPI contract.
+- Docs: `docs/README.md` indexes the architecture, the Pokemon feature, and the OpenAPI contract. `docs/exceptions.md` records the standard rules this repository does not meet yet.
+- Hooks: `just hooks` points `core.hooksPath` at `.githooks`, whose `pre-push` refuses a push to `main`. The ruleset is the real gate.
+- Agent files: `just agent-files` checks `.agents/skills` and its `.claude/skills` links. This repository has no repo-local skills.
 
 ## Skills
 

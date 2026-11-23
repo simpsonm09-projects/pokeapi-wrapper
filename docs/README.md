@@ -13,3 +13,7 @@ Index for this repository.
 ## Contracts
 
 - [OpenAPI](openapi.json) is the generated HTTP contract for the wrapper's endpoints.
+
+## Exceptions
+
+- [Exceptions](exceptions.md) records the standard rules this repository does not meet yet.
